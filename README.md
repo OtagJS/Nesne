@@ -1,14 +1,12 @@
-[Otağ](https://otagjs.org)'da gururla yaratıldı | Türkçe konuşuyoruz, Türkçe üretiyoruz
+Created at [Otag Community](https://otagjs.org)
 
-> For those who say "My main language is English": [Nesne](https://github.com/OtagJS/Nesne)
+> Go to Turkish version : [Nesne](https://github.com/ilgilenio/Nesne)
 - - -
 # Nesne
 
-Nesne bir **Nesne** işleme kütüphanesidir. lodash ile benzerlik gösteren işlevler içerir.
+Nesne is an Object manipulation library.
 
-Benzerlerinden ayrı olarak, yöntemlerin genelinde yeni **Nesne** oluşturmak yerine ilk girdi olarak verilen **Nesne** üzerine işler
-
-## Kurulum / Kullanım
+## Installation
 
 ```bash
     npm i nesne -g
@@ -18,133 +16,121 @@ Benzerlerinden ayrı olarak, yöntemlerin genelinde yeni **Nesne** oluşturmak y
     import Nesne from 'nesne'
 ```
 
-#### Geleneksel kullanım biçimi
+#### Traditional use
 
 ```html
     <script src="https://cdn.jsdelivr.net/npm/nesne@1.0.0/Nesne.min.js"></script>
 ```
 
-## Yeterge
+## License
 
 MIT License
 
-## Uygulama Geliştirme Arabirimi(UGA)
+## API
 
 ### .toArray 
 
-.toArray( _Nesne_ )
+.toArray( _Object_ )
 
-**Nesne** ya da **işlev girdileri(arguments)**'ni **Dizi**'ye dönüştürür.
+Converts **Object** or **arguments** to **Array**
 
 ``` javascript
-   let dizelge = Nesne.toArray({a: 1,b: 2,c: 3})
+   let arr = Nesne.toArray({a: 1,b: 2,c: 3})
    
-   console.log(dizelge) // [1, 2, 3]
+   console.log(arr) // [1, 2, 3]
 ```
 
 ### .combine
 
-.combine( _Nesne_, _Nesne_, ...  )
+.combine( _Object_, _Object_, ...  )
 
-**Nesne**leri birleştirir. 
-
+Combines Objects
 
 ``` javascript
-   let nsn   = {a: 8, b: 2, c: 3, d: -2}
-    ,  nsn2  = {c: 4, d: 1}
-    ,  sonuç = Nesne.combine(nsn, nsn2)
+   let obj   = {a: 8, b: 2, c: 3, d: -2}
+    ,  obj2  = {c: 4, d: 1}
+    ,  final = Nesne.combine(obj, obj2)
     
-    console.log(sonuç) // {a: 8, b: 2, c: 4, d: 1} // c ve d'nin üstüne yazıldı
+    console.log(final) // {a: 8, b: 2, c: 4, d: 1} // c and d is overwritten
 ```
-
-> Buradaki _sonuç_ **Nesne**si aslında _nsn_'nin kendisidir.
 
 ### .cumul
 
-.cumul( _Nesne_, _Nesne_, ...  )
+.cumul( _Object_, _Object_, ...  )
 
-**Nesne**lerin değerlerini birleştirir 
-
+Combines Objects by summing values.
 
 ``` javascript
-   let nsn   = {a: 8, b: 2, c: 3, d: -2}
-    ,  nsn2  = {c: 4, d: 1, e: 2}
-    ,  sonuç = Nesne.cumul(nsn, nsn2)
+   let obj   = {a: 8, b: 2, c: 3, d: -2}
+    ,  obj2  = {c: 4, d: 1, e: 2}
+    ,  final = Nesne.cumul(obj, obj2)
     
-    console.log(sonuç) // {a: 8, b: 2, c: 7, d: -1, e :2} // değer kaybı yok
+    console.log(final) // {a: 8, b: 2, c: 7, d: -1, e :2} // no value loss
 ```
-
-> Buradaki _sonuç_ **Nesne**si aslında _nsn_'nin kendisidir.
 
 ### .match
 
-.match( **nsn** _Nesne_, **nsn2** _Nesne_, **alanlar** _Dizi_, **öntanımlı* )
+.match( **obj** _Object_, **obj2** _Object_, **fields** _Array_, **default** )
 
-_nsn2_ **Nesne**sindeki ilgili _alanlar_'ı _nsn_ içine taşır, eğer o açar _nsn_ içinde yoksa _öntanımlı_ değer verilir
+Transfers values of given fields from obj2 to obj, if value not exists, uses default value
 
 ``` javascript
-    let nsn  = {}
-    ,   nsn2  = {a: 5, c: 6, d: 16}
-    ,   sonuç = Nesne.match(nsn, nsn2, ['a', 'd', 'e'], 12)
+    let obj1  = {}
+    ,   obj2  = {a: 5, c: 6, d: 16}
+    ,   final = Nesne.match(obj, obj2, ['a', 'd', 'e'], 12)
     
-    console.log(sonuç) // {a: 5, d: 16, e :2} // e öntanımlı değer ile
+    console.log(final) // {a: 5, d: 16, e :2} // e is default
 ```
 
-> Buradaki _sonuç_ **Nesne**si aslında _nsn_'nin kendisidir.
+##### Another default use case
 
-##### Öntanımlı değer kullanmanın başka bir biçimi
-
-_öntanımlı_ değerleri bir ilgili açarlar için karşılığı bulunan bir **Nesne** olarak verin. _ _def _ açarını da diğer bütün açarlar için kullanın
+define default values as an Object, use **_def** to define default value for all not existing keys
 
 ``` javascript
-    let nsn1  = {}
-    ,   nsn2  = {a: 5, c: 6, d: 16}
-    ,   sonuç = Nesne.match(
-            nsn, nsn2,
+    let obj1  = {}
+    ,   obj2  = {a: 5, c: 6, d: 16}
+    ,   final = Nesne.match(
+            obj, obj2,
             ['a', 'd', 'e', 'f', 'g', 'h'], {e: 12, _def:10})
     
-    console.log(sonuç) // {a: 5, d: 16, e :2, f: 10, g: 10, h:10}
+    console.log(final) // {a: 5, d: 16, e :2, f: 10, g: 10, h:10}
 ```
 
 ### .map 
 
-.map( **nsn** _Nesne_, **pusula** _Nesne_, **sınırla** _Mantıksal_, **öntanımlı** )
+.map( **obj** _Object_, **map** _Object_, **limit** _Boolean_, **default** )
 
-**Nesne** açarlarını belirtiğiniz şekilde değiştirir.
-Aşağıdaki örnekte a'nın değerini b'den al şeklinde bir değişim yapılmıştır. 
-
-``` javascript
-    let nsn   = {a: 5, b: 6, c: 16, d: 18}
-    ,  pusula   = {a: 'b',c: 'a', b: 'c'}
-    ,  sonuç = Nesne.map(nsn, pusula)
-        
-    console.log(sonuç) // {a: 6, b: 16, c: 5, d: 18}
-```
-
-> !! Buradaki sonuç **Nesne**si YENİ OLUŞTURULMUŞ bir **Nesne**dir
-
-##### Açar kazanımını sınırlama
-
-Bu yeni oluşturulan **Nesne**yi dilerseniz sınırlayanilirsiniz. öntanımlı değerler ile bütün **Nesne**yi emmek yerine sadece _pusula_da belirttiğiniz açarlar emilmiş olur
+Creates an Object with key mapping
 
 ``` javascript
-    let nsn   = {a: 5, b: 6, c: 16, d: 18}
-    ,  pusula   = {a: 'b',c: 'a', b: 'c'}
-    ,  sonuç = Nesne.map(nsn, pusula, true)
+    let obj   = {a: 5, b: 6, c: 16, d: 18}
+    ,  map   = {a: 'b',c: 'a', b: 'c'}
+    ,  final = Nesne.map(obj, map)
         
-    console.log(sonuç) // {a: 6, b: 16, c: 5} // d emilmedi
+    console.log(final) // {a: 6, b: 16, c: 5, d: 18}
 ```
 
-##### Ön tanımlı değeri kullanma
+##### Limit obtained keys
 
-_nsn_'de bulunmayan açarlar için öntanımlı bir değer tanımlayabilirsiniz. 
+You can also limit obtained keys which is not specified in map argument
 
 ``` javascript
-    let nsn   = {a: 5, b: 6, c: 16, d: 18}
-    ,  pusula   = {a: 'b',c: 'a', b: 'c',e: 'f'}
-    ,  sonuç = Nesne.map(nsn, pusula, true, 25)
+    let obj   = {a: 5, b: 6, c: 16, d: 18}
+    ,  map   = {a: 'b',c: 'a', b: 'c'}
+    ,  final = Nesne.map(obj, map, true)
         
-    console.log(sonuç) // {a: 6, b: 16, c: 5, e:25} 
-    // nsn.f yok, bu durumda ön tanımlı değer e'ye verilmiş oldu
+    console.log(final) // {a: 6, b: 16, c: 5} // d is not obtained
 ```
 
+##### Use default value
+
+You can use default value for absent values
+
+``` javascript
+    let obj   = {a: 5, b: 6, c: 16, d: 18}
+    ,  map   = {a: 'b',c: 'a', b: 'c',e: 'f'}
+    ,  final = Nesne.map(obj, map, true, 25)
+        
+    console.log(final) // {a: 6, b: 16, c: 5, e:25} 
+    // obj.f isn't exist, so default value is given to e
+```
