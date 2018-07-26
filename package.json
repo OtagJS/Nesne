@@ -1,0 +1,29 @@
+{
+  "name": "nesne",
+  "version": "1.0.0",
+  "description": "Nesne is an Object manipulation library.",
+  "main": "Nesne.min.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://git@gitlab.com/Otag/Nesne.git"
+  },
+  "keywords": [
+    "Otag",
+    "OtagJS",
+    "Object",
+    "Object Manipulation",
+    "ES6"
+  ],
+  "author": "Alper Kürşat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/Otag/Nesne/issues"
+  },
+  "homepage": "https://gitlab.com/Otag/Nesne#README",
+  "dependencies": {
+    "uglify-js-es6": "^2.8.9"
+  }
+}
